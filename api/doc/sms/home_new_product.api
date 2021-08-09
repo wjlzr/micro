@@ -1,0 +1,76 @@
+info(
+    title: "micro"
+    desc: "micro"
+    author: "weijialei"
+    email: "weijialei@wikiglobal.com"
+)
+
+type (
+    addHomeNewProductReq struct {
+        ProductId       int64  `json:"productId"`
+        ProductName     string `json:"productName"`
+        RecommendStatus int64  `json:"recommendStatus"`
+        Sort            int64  `json:"sort"`
+    }
+    addHomeNewProductResp struct {
+        Code string `json:"code"`
+        Message string `json:"message"`
+    }
+    ListHomeNewProductReq struct {
+        Current int64 `json:"current,default=1"`
+        PageSize int64 `json:"pageSize,default=20"`
+    }
+    ListtHomeNewProductData struct {
+        Id int64 `json:"id"`
+        ProductId int64 `json:"productId"`
+        ProductName string `json:"productName"`
+        RecommendStatus int64 `json:"recommendStatus"`
+        Sort int64 `json:"sort"`
+    }
+    ListHomeNewProductResp struct {
+        Code string `json:"code"`
+        Message string `json:"message"`
+        Current int64 `json:"current,default=1"`
+        Data []*ListtHomeNewProductData `json:"data"`
+        PageSize int64 `json:"pageSize,default=20"`
+        Success bool `json:"success"`
+        Total int64 `json:"total"`
+    }
+    UpdateHomeNewProductReq struct {
+        Id              int64  `json:"id"`
+        ProductId       int64  `json:"productId"`
+        ProductName     string `json:"productName"`
+        RecommendStatus int64  `json:"recommendStatus"`
+        Sort            int64  `json:"sort"`
+    }
+    UpdateHomeNewProductResp struct {
+        Code string `json:"code"`
+        Message string `json:"message"`
+    }
+    DeleteHomeNewProductReq struct {
+        Id int64 `json:"id"`
+    }
+    DeleteHomeNewProductResp struct {
+        Code string `json:"code"`
+        Message string `json:"message"`
+    }
+)
+
+@server(
+    jwt: Auth
+    middleware: CheckUrl
+    group: sms/homenewproduct
+)
+service admin-api {
+    @handler HomeNewProductAdd
+    post /api/sms/homenewproduct/add (addHomeNewProductReq) returns (addHomeNewProductResp)
+
+    @handler HomeNewProductList
+    post /api/sms/homenewproduct/list (ListHomeNewProductReq) returns (ListHomeNewProductResp)
+
+    @handler HomeNewProductUpdate
+    post /api/sms/homenewproduct/update (UpdateHomeNewProductReq) returns (UpdateHomeNewProductResp)
+
+    @handler HomeNewProductDelete
+    post /api/sms/homenewproduct/delete (DeleteHomeNewProductReq) returns (DeleteHomeNewProductResp)
+}

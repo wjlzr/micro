@@ -1,0 +1,50 @@
+Name: admin-api
+Host: 0.0.0.0
+Port: 8888
+
+#系统
+SysRpc:
+  Etcd:
+    Hosts:
+      - localhost:2379
+    Key: sys.rpc
+
+#会员
+UmsRpc:
+  Etcd:
+    Hosts:
+      - localhost:2379
+    Key: ums.rpc
+
+#商品
+PmsRpc:
+  Etcd:
+    Hosts:
+      - localhost:2379
+    Key: pms.rpc
+
+#订单
+OmsRpc:
+  Etcd:
+    Hosts:
+      - localhost:2379
+    Key: oms.rpc
+
+#营销
+SmsRpc:
+  Etcd:
+    Hosts:
+      - localhost:2379
+    Key: sms.rpc
+
+Auth:
+  AccessSecret: ad879037-c7a4-4063-9236-6bfc35d54b7d
+  AccessExpire: 86400
+
+Prometheus:
+  Host: 127.0.0.1
+  Port: 8188
+  Path: /metrics
+
+Redis:
+  Address: 127.0.0.1:6379

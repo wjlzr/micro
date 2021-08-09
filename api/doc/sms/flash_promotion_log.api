@@ -1,0 +1,82 @@
+info(
+    title: "micro"
+    desc: "micro"
+    author: "weijialei"
+    email: "weijialei@wikiglobal.com"
+)
+
+type (
+    addFlashPromotionLogReq struct {
+        MemberId      int64     `json:"memberId"`
+        ProductId     int64     `json:"productId"`
+        MemberPhone   string    `json:"memberPhone"`
+        ProductName   string    `json:"productName"`
+        SubscribeTime string `json:"subscribeTime"` // 会员订阅时间
+        SendTime      string `json:"sendTime"`
+    }
+    addFlashPromotionLogResp struct {
+        Code string `json:"code"`
+        Message string `json:"message"`
+    }
+    ListFlashPromotionLogReq struct {
+        Current int64 `json:"current,default=1"`
+        PageSize int64 `json:"pageSize,default=20"`
+    }
+    ListtFlashPromotionLogData struct {
+        Id int64 `json:"id"`
+        MemberId int64 `json:"memberId"`
+        ProductId int64 `json:"productId"`
+        MemberPhone string `json:"memberPhone"`
+        ProductName string `json:"productName"`
+        SubscribeTime string `json:"subscribeTime"` // 会员订阅时间
+        SendTime string `json:"sendTime"`
+    }
+    ListFlashPromotionLogResp struct {
+        Code string `json:"code"`
+        Message string `json:"message"`
+        Current int64 `json:"current,default=1"`
+        Data []*ListtFlashPromotionLogData `json:"data"`
+        PageSize int64 `json:"pageSize,default=20"`
+        Success bool `json:"success"`
+        Total int64 `json:"total"`
+    }
+    UpdateFlashPromotionLogReq struct {
+        Id            int64     `json:"id"`
+        MemberId      int64     `json:"memberId"`
+        ProductId     int64     `json:"productId"`
+        MemberPhone   string    `json:"memberPhone"`
+        ProductName   string    `json:"productName"`
+        SubscribeTime string `json:"subscribeTime"` // 会员订阅时间
+        SendTime      string `json:"sendTime"`
+    }
+    UpdateFlashPromotionLogResp struct {
+        Code string `json:"code"`
+        Message string `json:"message"`
+    }
+    DeleteFlashPromotionLogReq struct {
+        Id int64 `json:"id"`
+    }
+    DeleteFlashPromotionLogResp struct {
+        Code string `json:"code"`
+        Message string `json:"message"`
+    }
+)
+
+@server(
+    jwt: Auth
+    middleware: CheckUrl
+    group: sms/flashpromotionlog
+)
+service admin-api {
+    @handler FlashPromotionLogAdd
+    post /api/sms/flashpromotionlog/add (addFlashPromotionLogReq) returns (addFlashPromotionLogResp)
+
+    @handler FlashPromotionLogList
+    post /api/sms/flashpromotionlog/list (ListFlashPromotionLogReq) returns (ListFlashPromotionLogResp)
+
+    @handler FlashPromotionLogUpdate
+    post /api/sms/flashpromotionlog/update (UpdateFlashPromotionLogReq) returns (UpdateFlashPromotionLogResp)
+
+    @handler FlashPromotionLogDelete
+    post /api/sms/flashpromotionlog/delete (DeleteFlashPromotionLogReq) returns (DeleteFlashPromotionLogResp)
+}

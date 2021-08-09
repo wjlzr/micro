@@ -1,0 +1,76 @@
+info(
+    title: "micro"
+    desc: "micro"
+    author: "weijialei"
+    email: "weijialei@wikiglobal.com"
+)
+
+type (
+    addHomeBrandReq struct {
+        BrandId         int64  `json:"brandId"`
+        BrandName       string `json:"brandName"`
+        RecommendStatus int64  `json:"recommendStatus"`
+        Sort            int64  `json:"sort"`
+    }
+    addHomeBrandResp struct {
+        Code string `json:"code"`
+        Message string `json:"message"`
+    }
+    ListHomeBrandReq struct {
+        Current int64 `json:"current,default=1"`
+        PageSize int64 `json:"pageSize,default=20"`
+    }
+    ListtHomeBrandData struct {
+        Id int64 `json:"id"`
+        BrandId int64 `json:"brandId"`
+        BrandName string `json:"brandName"`
+        RecommendStatus int64 `json:"recommendStatus"`
+        Sort int64 `json:"sort"`
+    }
+    ListHomeBrandResp struct {
+        Code string `json:"code"`
+        Message string `json:"message"`
+        Current int64 `json:"current,default=1"`
+        Data []*ListtHomeBrandData `json:"data"`
+        PageSize int64 `json:"pageSize,default=20"`
+        Success bool `json:"success"`
+        Total int64 `json:"total"`
+    }
+    UpdateHomeBrandReq struct {
+        Id              int64  `json:"id"`
+        BrandId         int64  `json:"brandId"`
+        BrandName       string `json:"brandName"`
+        RecommendStatus int64  `json:"recommendStatus"`
+        Sort            int64  `json:"sort"`
+    }
+    UpdateHomeBrandResp struct {
+        Code string `json:"code"`
+        Message string `json:"message"`
+    }
+    DeleteHomeBrandReq struct {
+        Id int64 `json:"id"`
+    }
+    DeleteHomeBrandResp struct {
+        Code string `json:"code"`
+        Message string `json:"message"`
+    }
+)
+
+@server(
+    jwt: Auth
+    middleware: CheckUrl
+    group: sms/homebrand
+)
+service admin-api {
+    @handler HomeBrandAdd
+    post /api/sms/homebrand/add (addHomeBrandReq) returns (addHomeBrandResp)
+
+    @handler HomeBrandList
+    post /api/sms/homebrand/list (ListHomeBrandReq) returns (ListHomeBrandResp)
+
+    @handler HomeBrandUpdate
+    post /api/sms/homebrand/update (UpdateHomeBrandReq) returns (UpdateHomeBrandResp)
+
+    @handler HomeBrandDelete
+    post /api/sms/homebrand/delete (DeleteHomeBrandReq) returns (DeleteHomeBrandResp)
+}

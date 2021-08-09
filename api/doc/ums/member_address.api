@@ -1,0 +1,91 @@
+info(
+    title: "micro"
+    desc: "micro"
+    author: "weijialei"
+    email: "weijialei@wikiglobal.com"
+)
+
+type (
+    addMemberAddressReq struct {
+        MemberId      int64  `json:"memberId"`
+        Name          string `json:"name"` // 收货人名称
+        PhoneNumber   string `json:"phoneNumber"`
+        DefaultStatus int64  `json:"defaultStatus"` // 是否为默认
+        PostCode      string `json:"postCode"`      // 邮政编码
+        Province      string `json:"province"`       // 省份/直辖市
+        City          string `json:"city"`           // 城市
+        Region        string `json:"region"`         // 区
+        DetailAddress string `json:"detailAddress"` // 详细地址(街道)
+    }
+    addMemberAddressResp struct {
+        Code string `json:"code"`
+        Message string `json:"message"`
+    }
+    ListMemberAddressReq struct {
+        Current int64 `json:"current,default=1"`
+        PageSize int64 `json:"pageSize,default=20"`
+    }
+    ListtMemberAddressData struct {
+        Id int64 `json:"id"`
+        MemberId int64 `json:"memberId"`
+        Name string `json:"name"`                    // 收货人名称
+        PhoneNumber string `json:"phoneNumber"`
+        DefaultStatus int64 `json:"defaultStatus"`   // 是否为默认
+        PostCode string `json:"postCode"`            // 邮政编码
+        Province string `json:"province"`            // 省份/直辖市
+        City string `json:"city"`                    // 城市
+        Region        string `json:"region"`         // 区
+        DetailAddress string `json:"detailAddress"` // 详细地址(街道)
+    }
+    ListMemberAddressResp struct {
+        Current int64 `json:"current,default=1"`
+        Data []*ListtMemberAddressData `json:"data"`
+        PageSize int64 `json:"pageSize,default=20"`
+        Success bool `json:"success"`
+        Total int64 `json:"total"`
+        Code string `json:"code"`
+        Message string `json:"message"`
+    }
+    UpdateMemberAddressReq struct {
+        Id            int64  `json:"id"`
+        MemberId      int64  `json:"memberId"`
+        Name          string `json:"name"` // 收货人名称
+        PhoneNumber   string `json:"phoneNumber"`
+        DefaultStatus int64  `json:"defaultStatus"` // 是否为默认
+        PostCode      string `json:"postCode"`      // 邮政编码
+        Province      string `json:"province"`       // 省份/直辖市
+        City          string `json:"city"`           // 城市
+        Region        string `json:"region"`         // 区
+        DetailAddress string `json:"detailAddress"` // 详细地址(街道)
+    }
+    UpdateMemberAddressResp struct {
+        Code string `json:"code"`
+        Message string `json:"message"`
+    }
+    DeleteMemberAddressReq struct {
+        Id int64 `json:"id"`
+    }
+    DeleteMemberAddressResp struct {
+        Code string `json:"code"`
+        Message string `json:"message"`
+    }
+)
+
+@server(
+    jwt: Auth
+    middleware: CheckUrl
+    group: member/address
+)
+service admin-api {
+    @handler MemberAddressAdd
+    post /api/member/address/add (addMemberAddressReq) returns (addMemberAddressResp)
+
+    @handler MemberAddressList
+    post /api/member/address/list (ListMemberAddressReq) returns (ListMemberAddressResp)
+
+    @handler MemberAddressUpdate
+    post /api/member/address/update (UpdateMemberAddressReq) returns (UpdateMemberAddressResp)
+
+    @handler MemberAddressDelete
+    post /api/member/address/delete (DeleteMemberAddressReq) returns (DeleteMemberAddressResp)
+}

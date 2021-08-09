@@ -1,0 +1,79 @@
+info(
+    title: "micro"
+    desc: "micro"
+    author: "weijialei"
+    email: "weijialei@wikiglobal.com"
+)
+
+type (
+    addFlashPromotionReq struct {
+        Title      string    `json:"title"`
+        StartDate  string `json:"startDate"`  // 开始日期
+        EndDate    string `json:"endDate"`    // 结束日期
+        Status     int64     `json:"status"`      // 上下线状态
+        CreateTime string `json:"createTime"` // 秒杀时间段名称
+    }
+    addFlashPromotionResp struct {
+        Code string `json:"code"`
+        Message string `json:"message"`
+    }
+    ListFlashPromotionReq struct {
+        Current int64 `json:"current,default=1"`
+        PageSize int64 `json:"pageSize,default=20"`
+    }
+    ListtFlashPromotionData struct {
+        Id int64 `json:"id"`
+        Title string `json:"title"`
+        StartDate string `json:"startDate"`   // 开始日期
+        EndDate string `json:"endDate"`       // 结束日期
+        Status int64 `json:"status"`          // 上下线状态
+        CreateTime string `json:"createTime"` // 秒杀时间段名称
+    }
+    ListFlashPromotionResp struct {
+        Code string `json:"code"`
+        Message string `json:"message"`
+        Current int64 `json:"current,default=1"`
+        Data []*ListtFlashPromotionData `json:"data"`
+        PageSize int64 `json:"pageSize,default=20"`
+        Success bool `json:"success"`
+        Total int64 `json:"total"`
+    }
+    UpdateFlashPromotionReq struct {
+        Id         int64     `json:"id"`
+        Title      string    `json:"title"`
+        StartDate  string `json:"startDate"`  // 开始日期
+        EndDate    string `json:"endDate"`    // 结束日期
+        Status     int64     `json:"status"`      // 上下线状态
+        CreateTime string `json:"createTime"` // 秒杀时间段名称
+    }
+    UpdateFlashPromotionResp struct {
+        Code string `json:"code"`
+        Message string `json:"message"`
+    }
+    DeleteFlashPromotionReq struct {
+        Id int64 `json:"id"`
+    }
+    DeleteFlashPromotionResp struct {
+        Code string `json:"code"`
+        Message string `json:"message"`
+    }
+)
+
+@server(
+    jwt: Auth
+    middleware: CheckUrl
+    group: sms/flashpromotion
+)
+service admin-api {
+    @handler FlashPromotionAdd
+    post /api/sms/flashpromotion/add (addFlashPromotionReq) returns (addFlashPromotionResp)
+
+    @handler FlashPromotionList
+    post /api/sms/flashpromotion/list (ListFlashPromotionReq) returns (ListFlashPromotionResp)
+
+    @handler FlashPromotionUpdate
+    post /api/sms/flashpromotion/update (UpdateFlashPromotionReq) returns (UpdateFlashPromotionResp)
+
+    @handler FlashPromotionDelete
+    post /api/sms/flashpromotion/delete (DeleteFlashPromotionReq) returns (DeleteFlashPromotionResp)
+}

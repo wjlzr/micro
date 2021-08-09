@@ -1,0 +1,76 @@
+info(
+    title: "micro"
+    desc: "micro"
+    author: "weijialei"
+    email: "weijialei@wikiglobal.com"
+)
+
+type (
+    addHomeRecommendSubjectReq struct {
+        SubjectId       int64  `json:"subjectId"`
+        SubjectName     string `json:"subjectName"`
+        RecommendStatus int64  `json:"recommendStatus"`
+        Sort            int64  `json:"sort"`
+    }
+    addHomeRecommendSubjectResp struct {
+        Code string `json:"code"`
+        Message string `json:"message"`
+    }
+    ListHomeRecommendSubjectReq struct {
+        Current int64 `json:"current,default=1"`
+        PageSize int64 `json:"pageSize,default=20"`
+    }
+    ListtHomeRecommendSubjectData struct {
+        Id int64 `json:"id"`
+        SubjectId int64 `json:"subjectId"`
+        SubjectName string `json:"subjectName"`
+        RecommendStatus int64 `json:"recommendStatus"`
+        Sort int64 `json:"sort"`
+    }
+    ListHomeRecommendSubjectResp struct {
+        Code string `json:"code"`
+        Message string `json:"message"`
+        Current int64 `json:"current,default=1"`
+        Data []*ListtHomeRecommendSubjectData `json:"data"`
+        PageSize int64 `json:"pageSize,default=20"`
+        Success bool `json:"success"`
+        Total int64 `json:"total"`
+    }
+    UpdateHomeRecommendSubjectReq struct {
+        Id              int64  `json:"id"`
+        SubjectId       int64  `json:"subjectId"`
+        SubjectName     string `json:"subjectName"`
+        RecommendStatus int64  `json:"recommendStatus"`
+        Sort            int64  `json:"sort"`
+    }
+    UpdateHomeRecommendSubjectResp struct {
+        Code string `json:"code"`
+        Message string `json:"message"`
+    }
+    DeleteHomeRecommendSubjectReq struct {
+        Id int64 `json:"id"`
+    }
+    DeleteHomeRecommendSubjectResp struct {
+        Code string `json:"code"`
+        Message string `json:"message"`
+    }
+)
+
+@server(
+    jwt: Auth
+    middleware: CheckUrl
+    group: sms/homerecommendsubject
+)
+service admin-api {
+    @handler HomeRecommendSubjectAdd
+    post /api/sms/homerecommendsubject/add (addHomeRecommendSubjectReq) returns (addHomeRecommendSubjectResp)
+
+    @handler HomeRecommendSubjectList
+    post /api/sms/homerecommendsubject/list (ListHomeRecommendSubjectReq) returns (ListHomeRecommendSubjectResp)
+
+    @handler HomeRecommendSubjectUpdate
+    post /apisms/homerecommendsubject/update (UpdateHomeRecommendSubjectReq) returns (UpdateHomeRecommendSubjectResp)
+
+    @handler HomeRecommendSubjectDelete
+    post /api/sms/homerecommendsubject/delete (DeleteHomeRecommendSubjectReq) returns (DeleteHomeRecommendSubjectResp)
+}

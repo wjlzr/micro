@@ -1,0 +1,76 @@
+info(
+    title: "micro"
+    desc: "micro"
+    author: "weijialei"
+    email: "weijialei@wikiglobal.com"
+)
+
+type (
+    addMemberPriceReq struct {
+        ProductId       int64   `json:"productId"`
+        MemberLevelId   int64   `json:"memberLevelId"`
+        MemberPrice     float64 `json:"memberPrice"` // 会员价格
+        MemberLevelName string  `json:"memberLevelName"`
+    }
+    addMemberPriceResp struct {
+        Code string `json:"code"`
+        Message string `json:"message"`
+    }
+    ListMemberPriceReq struct {
+        Current int64 `json:"current,default=1"`
+        PageSize int64 `json:"pageSize,default=20"`
+    }
+    ListtMemberPriceData struct {
+        Id int64 `json:"id"`
+        ProductId int64 `json:"productId"`
+        MemberLevelId int64 `json:"memberLevelId"`
+        MemberPrice float64 `json:"memberPrice"` // 会员价格
+        MemberLevelName string `json:"memberLevelName"`
+    }
+    ListMemberPriceResp struct {
+        Current int64 `json:"current,default=1"`
+        Data []*ListtMemberPriceData `json:"data"`
+        PageSize int64 `json:"pageSize,default=20"`
+        Success bool `json:"success"`
+        Total int64 `json:"total"`
+        Code string `json:"code"`
+        Message string `json:"message"`
+    }
+    UpdateMemberPriceReq struct {
+        Id              int64   `json:"id"`
+        ProductId       int64   `json:"productId"`
+        MemberLevelId   int64   `json:"memberLevelId"`
+        MemberPrice     float64 `json:"memberPrice"` // 会员价格
+        MemberLevelName string  `json:"memberLevelName"`
+    }
+    UpdateMemberPriceResp struct {
+        Code string `json:"code"`
+        Message string `json:"message"`
+    }
+    DeleteMemberPriceReq struct {
+        Id int64 `json:"id"`
+    }
+    DeleteMemberPriceResp struct {
+        Code string `json:"code"`
+        Message string `json:"message"`
+    }
+)
+
+@server(
+    jwt: Auth
+    middleware: CheckUrl
+    group: product/memberprice
+)
+service admin-api {
+    @handler MemberPriceAdd
+    post /api/product/memberprice/add (addMemberPriceReq) returns (addMemberPriceResp)
+
+    @handler MemberPriceList
+    post /api/product/memberprice/list (ListMemberPriceReq) returns (ListMemberPriceResp)
+
+    @handler MemberPriceUpdate
+    post /api/product/memberprice/update (UpdateMemberPriceReq) returns (UpdateMemberPriceResp)
+
+    @handler MemberPriceDelete
+    post /api/product/memberprice/delete (DeleteMemberPriceReq) returns (DeleteMemberPriceResp)
+}
