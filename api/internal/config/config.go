@@ -27,4 +27,8 @@ type Config struct {
 	Redis struct {
 		Address string
 	}
+
+	Mysql struct {
+		Dsn string
+	}
 }
