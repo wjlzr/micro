@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package sys;
+
+//user start---------------------
+message LoginReq {
+  string user_name = 1;
+  string password = 2;
+}
+
+message loginResp {
+  string status = 1;
+  string currentAuthority = 2;
+  int64 id = 3;
+  string userName = 4;
+  string AccessToken = 5;
+  int64 AccessExpire = 6;
+  int64 RefreshAfter = 7;
+}
+
+service Sys {
+  // Login 登录
+  rpc Login(LoginReq) returns(loginResp);
+}
