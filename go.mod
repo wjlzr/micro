@@ -6,7 +6,8 @@ require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/golang/protobuf v1.5.2
 	github.com/jinzhu/copier v0.3.2
-	github.com/k0kubun/pp v3.0.1+incompatible // indirect
+	github.com/k0kubun/colorstring v0.0.0-20150214042306-9440f1994b88 // indirect
+	github.com/k0kubun/pp v3.0.1+incompatible
 	github.com/tal-tech/go-zero v1.1.10
 	google.golang.org/grpc v1.39.1
 	google.golang.org/protobuf v1.27.1

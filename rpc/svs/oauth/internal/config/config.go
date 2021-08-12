@@ -10,11 +10,7 @@ type Config struct {
 		AccessExpire int64
 	}
 
-	Redis struct {
-		Address string
-	}
-
 	Mysql struct {
-		Dsn string
+		Dns string
 	}
 }

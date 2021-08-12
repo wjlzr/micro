@@ -7,7 +7,7 @@ import (
 	"micro/rpc/svs/oauth/internal/config"
 	"micro/rpc/svs/oauth/internal/server"
 	"micro/rpc/svs/oauth/internal/svc"
-	"micro/rpc/svs/oauth/sys"
+	"micro/rpc/svs/oauth/oauth"
 
 	"github.com/tal-tech/go-zero/core/conf"
 	"github.com/tal-tech/go-zero/zrpc"
@@ -22,10 +22,10 @@ func main() {
 	var c config.Config
 	conf.MustLoad(*configFile, &c)
 	ctx := svc.NewServiceContext(c)
-	srv := server.NewSysServer(ctx)
+	srv := server.NewOauthServer(ctx)
 
 	s := zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
-		sys.RegisterSysServer(grpcServer, srv)
+		oauth.RegisterOauthServer(grpcServer, srv)
 	})
 	defer s.Stop()
 

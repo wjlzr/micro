@@ -7,7 +7,7 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/tal-tech/go-zero/core/logx"
 	"micro/rpc/svs/oauth/internal/svc"
-	"micro/rpc/svs/oauth/sys"
+	"micro/rpc/svs/oauth/oauth"
 	"time"
 )
 
@@ -26,9 +26,9 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 }
 
 //  Login 登录
-func (l *LoginLogic) Login(in *sys.LoginReq) (*sys.LoginResp, error) {
+func (l *LoginLogic) Login(in *oauth.LoginReq) (*oauth.LoginResp, error) {
 
-	userInfo, count, err := l.svcCtx.Oauth.FindOne(map[string]interface{}{"account": in.UserName, "password": in.Password})
+	userInfo, count, err := l.svcCtx.Oauth.FindOne(map[string]interface{}{"name": in.UserName, "password": in.Password})
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func (l *LoginLogic) Login(in *sys.LoginReq) (*sys.LoginResp, error) {
 		return nil, err
 	}
 
-	resp := &sys.LoginResp{
+	resp := &oauth.LoginResp{
 		Status:           "ok",
 		CurrentAuthority: "admin",
 		Id:               userInfo.Id,
