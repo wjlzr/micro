@@ -3,14 +3,14 @@ FROM golang:alpine AS builder
 LABEL stage=gobuilder
 
 ENV CGO_ENABLED 0
-ENV GOOS linux
+ENV GOOS windows
 ENV GOPROXY https://goproxy.cn,direct
 
-WORKDIR /build/zero
+WORKDIR /build/micro
 COPY . .
 RUN sh -c "[ -f go.mod ]" || exit
 COPY api/etc /app/etc
-RUN go build -ldflags="-s -w" -o /app/admin api/admin.go
+RUN go build -ldflags="-s -w" -o /app/micro api/api-v1.go
 
 
 FROM alpine
@@ -22,8 +22,8 @@ RUN apk add --no-cache ca-certificates
 RUN apk add --no-cache tzdata
 ENV TZ Asia/Shanghai
 
-WORKDIR /app
-COPY --from=builder /app/admin /app/admin
+WORKDIR /app.
+COPY --from=builder /app/micro /app/micro
 COPY --from=builder /app/etc /app/etc
 
-CMD ["./admin", "-f", "etc/admin-api.yaml"]
+CMD ["./micro", "-f", "etc/api-v1.yaml"]

@@ -41,4 +41,4 @@ docker run -itd --net=host --name=ums ums:v1
 docker run -itd --net=host --name=oms oms:v1
 docker run -itd --net=host --name=pms pms:v1
 docker run -itd --net=host --name=sms sms:v1
-docker run -itd --net=host --name=api api:v1
+docker run -itd --net=host --name=api api:v1 /bin/sh

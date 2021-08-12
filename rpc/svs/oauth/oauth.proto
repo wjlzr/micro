@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package sys;
+package oauth;
 
 //user start---------------------
 message LoginReq {
@@ -18,7 +18,7 @@ message loginResp {
   int64 RefreshAfter = 7;
 }
 
-service Sys {
+service Oauth {
   // Login 登录
   rpc Login(LoginReq) returns(loginResp);
 }

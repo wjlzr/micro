@@ -1,8 +1,8 @@
 Name: oauth.rpc
-ListenOn: 127.0.0.1:8080
+ListenOn: 127.0.0.1:8889
 Etcd:
   Hosts:
-  - 127.0.0.1:2379
+    - 127.0.0.1:2379
   Key: oauth.rpc
 
 Mysql:

@@ -46,7 +46,7 @@ func (m *UserModel) FindOne(condition map[string]interface{}) (*User, int64, err
 
 	var user User
 
-	result := m.eloquent.Table(m.tableName).Select("id").Where(condition).FirstOrInit(&user)
+	result := m.eloquent.Table(m.tableName).Select("id", "name").Where(condition).FirstOrInit(&user)
 	if result.Error != nil {
 		logx.Errorf("user FindOne First Err：%s", result.Error)
 		return nil, 0, result.Error
