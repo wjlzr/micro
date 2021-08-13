@@ -14,18 +14,18 @@ COPY . /src
 RUN cd /src \
     && go mod download
 
-COPY api/etc /app/etc
-RUN go build -ldflags="-s -w" -o bin/api api/api-v1.go
+COPY rpc/svs/oauth/etc /app/etc
+RUN go build -ldflags="-s -w" -o bin/oauth rpc/svs/oauth/oauth.go
 
 
 # final stage
 FROM alpine
 WORKDIR /app
-COPY --from=build-env /src/bin/api /app/bin/api
+COPY --from=build-env /src/bin/oauth /app/bin/oauth
 COPY --from=build-env /app/etc /app/etc
 
 ENV TZ Asia/Shanghai
 
-EXPOSE 8888
+EXPOSE 8889
 
-CMD ["/app/bin/api","-f", "etc/api-v1.yaml"]
+CMD ["/app/bin/oauth","-f", "etc/oauth.yaml"]

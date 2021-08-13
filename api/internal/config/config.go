@@ -16,6 +16,7 @@ type Config struct {
 		AccessExpire int64
 	}
 
+	// Redis
 	Redis struct {
 		Address string
 	}

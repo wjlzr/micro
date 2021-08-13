@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  oauth:
+    build:
+      context: .
+      dockerfile: rpc/svs/oauth/Dockerfile
+    restart: always
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
+    volumes:
+      - ./logs:/app/logs
+
+  api:
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    restart: always
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
+    volumes:
+      - ./logs:/app/logs
