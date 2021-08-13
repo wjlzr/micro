@@ -11,6 +11,7 @@ type Config struct {
 	// oauth
 	OauthRpc zrpc.RpcClientConf
 
+	// Auth
 	Auth struct {
 		AccessSecret string
 		AccessExpire int64
