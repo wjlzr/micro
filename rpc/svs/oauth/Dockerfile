@@ -1,7 +1,5 @@
 # build stage
 FROM golang:alpine as build-env
-#RUN apk add build-base
-LABEL stage=gobuilder
 
 ENV CGO_ENABLED 0
 ENV GO111MODULE=on
@@ -11,8 +9,8 @@ WORKDIR /src
 
 COPY . /src
 
-RUN cd /src \
-    && go mod download
+RUN cd /src && \
+    go mod download
 
 COPY rpc/svs/oauth/etc /app/etc
 RUN go build -ldflags="-s -w" -o bin/oauth rpc/svs/oauth/oauth.go

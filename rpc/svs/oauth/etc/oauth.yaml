@@ -1,5 +1,5 @@
 Name: oauth.rpc
-ListenOn: 127.0.0.1:8889
+ListenOn: 0.0.0.0:8889
 Etcd:
   Hosts:
     - 127.0.0.1:2379

@@ -1,7 +1,7 @@
 # build stage
 FROM golang:alpine as build-env
 #RUN apk add build-base
-LABEL stage=gobuilder
+#LABEL stage=gobuilder
 
 ENV CGO_ENABLED 0
 ENV GO111MODULE=on

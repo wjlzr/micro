@@ -5,7 +5,7 @@ Port: 8888
 OauthRpc:
   Etcd:
     Hosts:
-      - 192.168.1.83:2379
+      - 127.0.0.1:2379
     Key: oauth.rpc
 
 Auth:
