@@ -5,24 +5,26 @@ services:
     build:
       context: .
       dockerfile: rpc/svs/oauth/Dockerfile
+    ports:
+      - "8889:8889"
+    container_name: "micro-svs-oauth"
     restart: always
-    ulimits:
-      nproc: 65535
-      nofile:
-        soft: 20000
-        hard: 40000
+    networks:
+      - host
     volumes:
-      - ./logs:/app/logs
+      - /docker/logs:/app/logs
 
   api:
     build:
       context: .
       dockerfile: api/Dockerfile
+    depends_on:
+      - oauth
+    ports:
+      - "8888:8888"
+    container_name: "micro-api"
     restart: always
-    ulimits:
-      nproc: 65535
-      nofile:
-        soft: 20000
-        hard: 40000
+    networks:
+      - host
     volumes:
-      - ./logs:/app/logs
+      - /docker/logs:/app/logs
