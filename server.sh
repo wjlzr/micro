@@ -2,6 +2,10 @@
 ## author by wjl
 ## wechat wjl695788976
 
+##### 删除none镜像
+# shellcheck disable=SC2046
+docker rmi $(docker images | grep "none" | awk '{print $3}')
+
 #### mysql 服务
 docker stop mysql
 docker rm mysql

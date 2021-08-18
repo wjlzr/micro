@@ -9,6 +9,7 @@ import (
 	"github.com/tal-tech/go-zero/rest"
 )
 
+// 路由注册
 func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
 	engine.AddRoutes(
 		[]rest.Route{
