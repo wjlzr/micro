@@ -10,7 +10,7 @@ services:
     container_name: "micro-svs-oauth"
     restart: always
     networks:
-      - host
+      - micro-net
     volumes:
       - /docker/logs:/app/logs
 
@@ -25,6 +25,11 @@ services:
     container_name: "micro-api"
     restart: always
     networks:
-      - host
+      - micro-net
     volumes:
       - /docker/logs:/app/logs
+
+
+networks:
+  micro-net:
+    driver: host
