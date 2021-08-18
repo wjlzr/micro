@@ -9,8 +9,7 @@ services:
       - "8889:8889"
     container_name: "micro-svs-oauth"
     restart: always
-    networks:
-      - micro-net
+    network_mode: "host"
     volumes:
       - /docker/logs:/app/logs
 
@@ -24,12 +23,6 @@ services:
       - "8888:8888"
     container_name: "micro-api"
     restart: always
-    networks:
-      - micro-net
+    network_mode: "host"
     volumes:
       - /docker/logs:/app/logs
-
-
-networks:
-  micro-net:
-    driver: host
