@@ -17,7 +17,7 @@ sh server.sh
 ### 业务服务启动
 ```
 docker-compose up -d
-```
+```       基于go-zero
 
 [附带 micro目录结构-基于go-zero略有修改]
 
