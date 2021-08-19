@@ -1,4 +1,25 @@
-micro目录结构
+# 基于go-zero 搭建的微服务基础架构
+
+### 详细介绍 里面只有后端api 业务代码-oauth验证
+
+### 附带go-zero官网（<https://github.com/tal-tech/go-zero>） 很优秀的微服务框架 有兴趣的小伙伴们可以了解
+
+### 已完成的功能列表
+- [x] 基于oauth2.0 登录
+
+## 如何运行
+
+### 先启动nginx mysql redis etcd 服务
+```shell
+sh server.sh
+```
+
+### 业务服务启动
+```
+docker-compose up -d
+```
+
+[附带 micro目录结构-基于go-zero略有修改]
 
 ```
 pkg                     
