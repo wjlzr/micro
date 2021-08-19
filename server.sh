@@ -6,6 +6,18 @@
 # shellcheck disable=SC2046
 docker rmi $(docker images | grep "none" | awk '{print $3}')
 
+#### nginx 服务
+docker stop nginx
+docker rm nginx
+docker run -itd --net=host \
+  -p 80:80 \
+  -p 443:443 \
+  --name nginx --restart=always -e TZ="Asia/Shanghai" \
+  -v /docker/nginx/html:/usr/share/nginx/html:ro \
+  -v /docker/nginx/conf.d:/etc/nginx/conf.d:ro \
+  -v /docker/nginx/log:/var/log/nginx \
+  nginx
+
 #### mysql 服务
 docker stop mysql
 docker rm mysql
