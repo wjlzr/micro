@@ -56,7 +56,7 @@ docker run --net=host -itd \
 #### jaeger服务
 docker stop jaeger
 docker rm jaeger
-docker run -d --name jaeger \
+docker run -itd --net=host --name jaeger \
   -e COLLECTOR_ZIPKIN_HTTP_PORT=9411 \
   -p 5775:5775/udp \
   -p 6831:6831/udp \
