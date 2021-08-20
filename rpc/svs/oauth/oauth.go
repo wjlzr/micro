@@ -3,6 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/opentracing/opentracing-go/ext"
+	"micro/services/trace"
+	"net/http"
 
 	"micro/rpc/svs/oauth/internal/config"
 	"micro/rpc/svs/oauth/internal/server"
@@ -18,6 +21,15 @@ var configFile = flag.String("f", "etc/oauth.yaml", "the config file")
 
 func main() {
 	flag.Parse()
+
+	// 链路追踪
+	var header http.Header
+	tracer, spanContext, closer, _ := trace.CreateSvsTracer("svs-oauth-service", header)
+	defer closer.Close()
+	// 生成依赖关系，并新建一个 span、
+	// 这里很重要，因为生成了  References []SpanReference 依赖关系
+	startSpan := tracer.StartSpan("operationName", ext.RPCServerOption(spanContext))
+	defer startSpan.Finish()
 
 	var c config.Config
 	conf.MustLoad(*configFile, &c)
