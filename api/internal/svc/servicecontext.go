@@ -1,7 +1,6 @@
 package svc
 
 import (
-	"github.com/opentracing/opentracing-go"
 	"github.com/tal-tech/go-zero/core/stores/redis"
 	"github.com/tal-tech/go-zero/rest"
 	"github.com/tal-tech/go-zero/zrpc"
@@ -15,11 +14,11 @@ type ServiceContext struct {
 	CheckUrl rest.Middleware
 	Oauth    oauthclient.Oauth
 	Redis    *redis.Redis
-	Span     opentracing.Span
-	Tracer   opentracing.Tracer
+	//Span     opentracing.Span
+	//Tracer   opentracing.Tracer
 }
 
-func NewServiceContext(c config.Config, tracer opentracing.Tracer, span opentracing.Span) *ServiceContext {
+func NewServiceContext(c config.Config) *ServiceContext {
 
 	newRedis := redis.NewRedis(c.Redis.Address, redis.NodeType)
 
@@ -28,7 +27,7 @@ func NewServiceContext(c config.Config, tracer opentracing.Tracer, span opentrac
 		CheckUrl: middleware.NewCheckUrlMiddleware(newRedis).Handle,
 		Oauth:    oauthclient.NewOauth(zrpc.MustNewClient(c.OauthRpc)),
 		Redis:    newRedis,
-		Span:     span,
-		Tracer:   tracer,
+		//Span:     span,
+		//Tracer:   tracer,
 	}
 }
