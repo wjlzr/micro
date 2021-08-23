@@ -5,6 +5,7 @@ import (
 	logic "micro/api/internal/logic/oauth/user"
 	"micro/api/internal/svc"
 	"micro/api/internal/types"
+	"micro/common/response"
 	"net/http"
 )
 
@@ -28,11 +29,11 @@ func LoginHandler(ctx *svc.ServiceContext) http.HandlerFunc {
 		}
 
 		l := logic.NewLoginLogic(r.Context(), ctx)
-		resp, err := l.Login(req, r.RemoteAddr)
+		resp, err := l.Login(req)
 		if err != nil {
 			httpx.Error(w, err)
 		} else {
-			httpx.OkJson(w, resp)
+			response.Success(w, resp)
 		}
 	}
 }

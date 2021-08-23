@@ -3341,9 +3341,6 @@ type LoginReq struct {
 }
 
 type LoginResp struct {
-	Code             string `json:"code"`
-	Message          string `json:"message"`
-	Status           string `json:"status"`
 	CurrentAuthority string `json:"currentAuthority"`
 	Id               int64  `json:"id"`
 	UserName         string `json:"userName"`

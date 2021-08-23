@@ -4,12 +4,11 @@ import (
 	"flag"
 	"fmt"
 	"github.com/tal-tech/go-zero/rest/httpx"
-	"micro/common/errorx"
-	"net/http"
-
 	"micro/api/internal/config"
 	"micro/api/internal/handler"
 	"micro/api/internal/svc"
+	"micro/common/response"
+	"net/http"
 
 	"github.com/tal-tech/go-zero/core/conf"
 	"github.com/tal-tech/go-zero/rest"
@@ -41,7 +40,7 @@ func main() {
 	// 自定义错误
 	httpx.SetErrorHandler(func(err error) (int, interface{}) {
 		switch e := err.(type) {
-		case *errorx.CodeError:
+		case *response.CodeError:
 			return http.StatusOK, e.Data()
 		default:
 			return http.StatusInternalServerError, nil

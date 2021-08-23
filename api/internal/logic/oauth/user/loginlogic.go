@@ -7,6 +7,7 @@ import (
 	"micro/api/internal/svc"
 	"micro/api/internal/types"
 	"micro/common/errorx"
+	"micro/common/response"
 	"micro/rpc/svs/oauth/oauthclient"
 	"strings"
 )
@@ -26,12 +27,12 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) LoginLogic {
 }
 
 // 根据用户名和密码登录
-func (l *LoginLogic) Login(req types.LoginReq, ip string) (*types.LoginResp, error) {
+func (l *LoginLogic) Login(req types.LoginReq) (*types.LoginResp, error) {
 
 	if len(strings.TrimSpace(req.UserName)) == 0 || len(strings.TrimSpace(req.Password)) == 0 {
 		reqStr, _ := json.Marshal(req)
 		logx.WithContext(l.ctx).Errorf("用户名或密码不能为空,请求信息失败,参数:%s", reqStr)
-		return nil, errorx.NewDefaultError("用户名或密码不能为空")
+		return nil, response.Error(errorx.ERROR_USERNAME_PASSWORD_NOT_EMPTY)
 	}
 
 	resp, err := l.svcCtx.Oauth.Login(l.ctx, &oauthclient.LoginReq{
@@ -41,13 +42,10 @@ func (l *LoginLogic) Login(req types.LoginReq, ip string) (*types.LoginResp, err
 
 	if err != nil {
 		logx.WithContext(l.ctx).Errorf("根据用户名: %s和密码: %s查询用户异常:%s", req.UserName, req.Password, err.Error())
-		return nil, errorx.NewDefaultError("登录失败")
+		return nil, response.Error(errorx.ERROR_FIND_USER_EXEPTION)
 	}
 
 	return &types.LoginResp{
-		Code:             "000000",
-		Message:          "登录成功",
-		Status:           resp.Status,
 		CurrentAuthority: resp.CurrentAuthority,
 		Id:               resp.Id,
 		UserName:         resp.UserName,
