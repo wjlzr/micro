@@ -15,7 +15,8 @@ JWT:
 Log:
   Mode: file
   Path: logs/sys
+
 Prometheus:
   Host: 127.0.0.1
-  Port: 8180
+  Port: 9090
   Path: /metrics
