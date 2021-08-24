@@ -76,5 +76,13 @@ docker run -itd --net=host \
     -v /docker/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml \
     prom/prometheus
 
+#### grafana服务
+docker stop grafana
+docker rm grafana
+docker run -itd --net=host \
+	  --name=grafana \
+	  -p 3000:3000 \
+	  grafana/grafana
+
 
 
