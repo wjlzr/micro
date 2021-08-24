@@ -6,8 +6,8 @@ require (
 	github.com/HdrHistogram/hdrhistogram-go v1.1.1 // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/golang/protobuf v1.5.2
-	github.com/k0kubun/pp v3.0.1+incompatible
 	github.com/opentracing/opentracing-go v1.2.0
+	github.com/prometheus/client_golang v1.11.0
 	github.com/tal-tech/go-zero v1.1.10
 	github.com/uber/jaeger-client-go v2.29.1+incompatible
 	github.com/uber/jaeger-lib v2.4.1+incompatible // indirect

@@ -22,7 +22,7 @@ type Response struct {
 	Data interface{} `json:"data"`
 }
 
-//错误返回的json
+// 错误返回的json
 func Error(code int) error {
 	return NewCodeError(code)
 }

@@ -67,5 +67,14 @@ docker run -itd --net=host --name jaeger \
   -p 9411:9411 \
   jaegertracing/all-in-one:latest
 
+#### prometheus服务
+docker stop prometheus
+docker rm prometheus
+docker run -itd -net=host \
+	  --name prometheus \
+    -p 9090:9090 \
+    -v /docker/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml \
+    prom/prometheus
+
 
 
