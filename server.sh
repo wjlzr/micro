@@ -70,7 +70,7 @@ docker run -itd --net=host --name jaeger \
 #### prometheus服务
 docker stop prometheus
 docker rm prometheus
-docker run -itd -net=host \
+docker run -itd --net=host \
 	  --name prometheus \
     -p 9090:9090 \
     -v /docker/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml \
