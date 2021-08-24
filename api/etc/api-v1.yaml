@@ -14,7 +14,7 @@ Auth:
 
 Prometheus:
   Host: 127.0.0.1
-  Port: 8188
+  Port: 9090
   Path: /metrics
 
 Redis:
