@@ -1,0 +1,39 @@
+info(
+    title: "micro"
+    desc: "micro"
+    author: "wjl"
+    email: "13773652841@163.com"
+)
+
+type (
+    loginReq struct {
+        UserName string `json:"userName"`
+        Password string `json:"password"`
+    }
+
+    loginResp struct {
+        Code string `json:"code"`
+        Msg string `json:"msg"`
+        Data loginDataResp `json:"data"`
+    }
+
+    loginDataResp struct {
+        CurrentAuthority string `json:"currentAuthority"`
+        Id int64 `json:"id"`
+        UserName string `json:"userName"`
+        AccessToken string `json:"token"`
+        AccessExpire int64 `json:"accessExpire"`
+        RefreshAfter int64 `json:"refreshAfter"`
+    }
+)
+
+@server(
+    group: oauth
+)
+service oauth-api {
+    @doc(
+	    summary: "登录"
+	)
+    @handler Login
+    post /api/v1/oauth/login (loginReq) returns (loginResp)
+}
