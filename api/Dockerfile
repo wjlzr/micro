@@ -9,10 +9,10 @@ ENV GOPROXY="https://goproxy.cn"
 
 WORKDIR /src
 
+COPY . /src
+
 RUN cd /src \
     && go mod download
-
-COPY . /src
 
 COPY api/etc /app/etc
 RUN go build -ldflags="-s -w" -o bin/api api/api-v1.go
