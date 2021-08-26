@@ -10,7 +10,7 @@ WORKDIR /src
 COPY go.mod go.mod
 COPY go.sum go.sum
 
-RUN cd /src && go mod download
+RUN go mod download
 
 COPY . /src
 COPY rpc/svs/oauth/etc /app/etc

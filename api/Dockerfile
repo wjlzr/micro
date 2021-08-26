@@ -12,7 +12,7 @@ WORKDIR /src
 COPY go.mod go.mod
 COPY go.sum go.sum
 
-RUN cd /src && go mod download
+RUN go mod download
 
 COPY . /src
 COPY api/etc /app/etc
