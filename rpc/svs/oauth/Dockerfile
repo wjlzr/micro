@@ -7,10 +7,10 @@ ENV GOPROXY="https://goproxy.cn"
 
 WORKDIR /src
 
-COPY . /src
-
 RUN cd /src && \
     go mod download
+
+COPY . /src
 
 COPY rpc/svs/oauth/etc /app/etc
 RUN go build -ldflags="-s -w" -o bin/oauth rpc/svs/oauth/oauth.go
