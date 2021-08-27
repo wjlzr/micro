@@ -20,9 +20,6 @@ var (
 
 func main() {
 	flag.Parse()
-	// 链路追踪
-	//tracer, closer, _ := trace.CreateTracer("api-v1-service")
-	//parentSpan := tracer.StartSpan("A")
 
 	var c config.Config
 	conf.MustLoad(*configFile, &c)
@@ -32,11 +29,6 @@ func main() {
 	defer server.Stop()
 
 	handler.RegisterHandlers(server, ctx)
-
-	// 结束 A
-	//parentSpan.Finish()
-	//// 结束当前 tracer
-	//_ = closer.Close()
 
 	// 自定义错误
 	httpx.SetErrorHandler(func(err error) (int, interface{}) {
