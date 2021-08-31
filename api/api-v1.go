@@ -19,6 +19,7 @@ var (
 )
 
 func main() {
+	// 日常打卡
 	flag.Parse()
 
 	var c config.Config
