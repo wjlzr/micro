@@ -21,7 +21,7 @@ func LoginHandler(ctx *svc.ServiceContext) http.HandlerFunc {
 		//ext.SpanKindRPCClient.Set(childSpan)
 		//_ = ctx.Tracer.Inject(childSpan.Context(), opentracing.HTTPHeaders, opentracing.HTTPHeadersCarrier(header))
 		//defer childSpan.Finish()
-
+		// 2021 9.8 国耻日
 		var req types.LoginReq
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.Error(w, err)
